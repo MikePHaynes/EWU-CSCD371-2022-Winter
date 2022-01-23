@@ -1,4 +1,6 @@
-﻿namespace Logger
+﻿using Logger;
+
+namespace Logger
 {
     public abstract class BaseLogger
     {
