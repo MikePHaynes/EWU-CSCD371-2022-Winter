@@ -19,11 +19,9 @@ namespace Logger
             if (File.Exists(FilePath))
             {
                 string logMessage = DateTime.Now.ToString() + " " + nameof(ClassName) + " " + logLevel + ": " + message + "\n";
-                using (StreamWriter sw = File.AppendText(FilePath)) 
-                { 
-                    sw.WriteLine(logMessage);
-                    sw.Close();
-                }
+                using StreamWriter sw = File.AppendText(FilePath);
+                sw.WriteLine(logMessage);
+                sw.Close();
             }
         }
 

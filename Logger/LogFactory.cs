@@ -10,7 +10,7 @@
             ClassName = className;
         }
 
-        public BaseLogger? CreateLogger(string className)
+        public BaseLogger? CreateLogger()
         {
             if (FilePath is not null) return new FileLogger(FilePath, ClassName);
             return null;
