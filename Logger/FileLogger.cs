@@ -5,21 +5,21 @@ namespace Logger
 {
     public class FileLogger : BaseLogger
     {
-        private string FilePath { get; set; }
-        private string? ClassName { get; set; }
+        public string? PathToFile { get; set; }
 
-        public FileLogger(string filePath, string? className)
+        public FileLogger() { }
+
+        public FileLogger(string? pathToFile)
         {
-            FilePath = filePath;
-            ClassName = className;
+            PathToFile = pathToFile;
         }
 
         public override void Log(LogLevel logLevel, string message)
         {
-            if (File.Exists(FilePath))
+            if (File.Exists(PathToFile))
             {
-                string logMessage = DateTime.Now.ToString() + " " + nameof(ClassName) + " " + logLevel + ": " + message + "\n";
-                using StreamWriter sw = File.AppendText(FilePath);
+                string logMessage = DateTime.Now.ToString() + " " + ClassName + " " + logLevel + ": " + message;
+                using StreamWriter sw = File.AppendText(PathToFile);
                 sw.WriteLine(logMessage);
                 sw.Close();
             }
