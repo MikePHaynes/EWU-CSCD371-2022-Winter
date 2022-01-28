@@ -16,11 +16,17 @@ namespace Logger
 
         public override void Log(LogLevel logLevel, string message)
         {
+            string logMessage = DateTime.Now.ToString() + " " + ClassName + " " + logLevel + ": " + message + "\n";
             if (File.Exists(PathToFile))
             {
-                string logMessage = DateTime.Now.ToString() + " " + ClassName + " " + logLevel + ": " + message;
                 using StreamWriter sw = File.AppendText(PathToFile);
-                sw.WriteLine(logMessage);
+                sw.Write(logMessage);
+                sw.Close();
+            }
+            else
+            {
+                using StreamWriter sw = File.CreateText(PathToFile);
+                sw.Write(logMessage);
                 sw.Close();
             }
         }
