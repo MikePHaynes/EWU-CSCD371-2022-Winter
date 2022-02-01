@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CanHazFunny
+﻿namespace CanHazFunny
 {
-    internal class Jester
+    public class Jester
     {
+        public Jester()
+        {
+
+        }
+
+        public void TellJoke()
+        {
+            JokeService jokeService = new();
+            string joke = jokeService.GetJoke();
+            while (joke.Contains("Chuck Norris")) joke = jokeService.GetJoke();
+        }
     }
 }
