@@ -29,7 +29,6 @@
 
         public bool Exists(T value)
         {
-            bool valueExists = false;
             Node<T> current = this;
             do
             {
@@ -37,13 +36,12 @@
                 {
                     if (current.Value.Equals(value))
                     {
-                        valueExists = true;
-                        break;
+                        return true;
                     }
                 }
                 current = current.Next;
             } while (Next != this);
-            return valueExists;
+            return false;
         }
 
     }
