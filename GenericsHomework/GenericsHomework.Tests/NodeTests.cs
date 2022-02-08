@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GenericsHomework.Tests
 {
@@ -6,12 +7,23 @@ namespace GenericsHomework.Tests
     public class NodeTests
     {
         [TestMethod]
-        public void TestMethod1()
+        [ExpectedException(typeof(ArgumentException))]
+        public void Append_ValueAlreadyExists_ThrowsException()
         {
-            Node<int> node1 = new(6);
-            Node<string> node2 = new("Hello");
-            Assert.AreEqual(6, node1.Value);
-            Assert.AreEqual("Hello", node2.Value);
+            Node<string> node = new("Value");
+            node.Append("Value");
         }
+
+        [TestMethod]
+        public void Append_ValuesDoNotAlreadyExist_Success()
+        {
+            Node<string> node = new("Apple");
+            node.Append("Banana");
+            node.Append("Cherry");
+            string actualResult = $"{node} {node.Next} {node.Next.Next} {node.Next.Next.Next}";
+            string expectedResult = "Apple Cherry Banana Apple";
+            Assert.AreEqual<string>(expectedResult, actualResult);
+        }
+
     }
 }

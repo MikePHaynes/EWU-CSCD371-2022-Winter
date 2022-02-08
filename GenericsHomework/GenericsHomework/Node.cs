@@ -49,7 +49,7 @@
                     }
                 }
                 current = current.Next;
-            } while (Next != this);
+            } while (current != this);
             return false;
         }
 
