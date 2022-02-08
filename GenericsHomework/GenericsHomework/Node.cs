@@ -11,5 +11,25 @@
             Next = this;
         }
 
+        public override string ToString()
+        {
+            return "";
+        }
+
+        public void Append(T value)
+        {
+
+        }
+
+        public void Clear()
+        {
+
+        }
+
+        public bool Exists(T value)
+        {
+            return true;
+        }
+
     }
 }
