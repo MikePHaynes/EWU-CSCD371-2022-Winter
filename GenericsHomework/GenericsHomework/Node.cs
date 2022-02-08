@@ -11,9 +11,10 @@
             Next = this;
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
-            return "";
+            if (Value is null) return null;
+            return Value.ToString();
         }
 
         public void Append(T value)
