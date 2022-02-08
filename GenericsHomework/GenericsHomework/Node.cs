@@ -2,7 +2,7 @@
 {
     public class Node<T>
     {
-        public T Value { get; set; }
+        public T Value { get; private set; }
         public Node<T> Next { get; private set; }
 
         public Node(T value)
@@ -19,7 +19,16 @@
 
         public void Append(T value)
         {
-            
+            if (Exists(value))
+            {
+                throw new ArgumentException("Existing value.");
+            }
+            else
+            {
+                Node<T> newNode = new(value);
+                newNode.Next = Next;
+                Next = newNode;
+            }
         }
 
         public void Clear()
