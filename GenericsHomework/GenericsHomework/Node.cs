@@ -31,6 +31,9 @@
             }
         }
 
+        /* Setting next to itself here should be sufficient for clearing
+         the list because there is nothing else referencing the other nodes
+        in the list allowing them to be picked up by the garbage collector. */
         public void Clear()
         {
             Next = this;
