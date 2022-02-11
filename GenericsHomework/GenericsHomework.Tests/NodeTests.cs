@@ -25,5 +25,29 @@ namespace GenericsHomework.Tests
             Assert.AreEqual<string>(expectedResult, actualResult);
         }
 
+        [TestMethod]
+        public void Clear_ThreeExistingNodes_OneNodeLeft()
+        {
+            Node<int> node = new(42);
+            node.Append(43);
+            node.Append(44);
+            node.Clear();
+            Assert.AreEqual<int>(node.Value, node.Next.Value);
+        }
+
+        [TestMethod]
+        public void Constructor_PassedNonNullValue_ValueIsNotNull()
+        {
+            Node<string> node = new("Inigo Montoya");
+            Assert.IsNotNull(node.Value);
+        }
+
+        [TestMethod]
+        public void ToString_ValueIsInteger_IntegerToStringAndValueToStringAreEqual()
+        {
+            Node<int> node = new(42);
+            Assert.AreEqual<string>(42.ToString(), node.Value.ToString());
+        }
+
     }
 }
