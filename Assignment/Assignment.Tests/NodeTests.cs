@@ -58,10 +58,10 @@ namespace Assignment.Tests
             node.Append("third");
             node.Append("second");
 
-            Assert.AreEqual(node.ChildItems(2).Last(), "second");
-            Assert.AreEqual(node.ChildItems(3).Last(), "third");
-            Assert.AreEqual(node.ChildItems(4).Last(), "fourth");
-            Assert.AreEqual(node.ChildItems(5).Last(), "fifth");
+            Assert.AreEqual(node.ChildItems(2).Last().ToString(), "second");
+            Assert.AreEqual(node.ChildItems(3).Last().ToString(), "third");
+            Assert.AreEqual(node.ChildItems(4).Last().ToString(), "fourth");
+            Assert.AreEqual(node.ChildItems(5).Last().ToString(), "fifth");
         }
         
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Assignment.Tests
             node.Append("Banana");
             node.Append("Cherry");
             string result = node.Select(node => node.Value).Aggregate((nodeList, nextNode) => nodeList + ", " + nextNode);
-            Assert.AreEqual("Apple, Cherry, Banana", result);
+            Assert.AreEqual<string>("Apple, Cherry, Banana", result);
         }
 
     }

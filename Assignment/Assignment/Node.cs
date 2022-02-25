@@ -80,7 +80,7 @@ namespace Assignment
 
             do
             {
-                yield return cur.Value;
+                yield return cur;
                 cur = cur.Next;
                 num++;
             }
