@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace Assignment;
 
@@ -27,7 +29,20 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        Task<PingResult> resultTask = new Task<PingResult>( () => 
+            {
+                Ping toSend = new Ping ();
+
+                PingReply reply = toSend.Send(hostNameOrAddress);
+
+                PingResult res = new PingResult(((int)reply.Status), reply.Status.ToString());
+
+                return res;
+            }
+        );
+
+        return resultTask;
+
     }
 
     async public Task<PingResult> RunAsync(
