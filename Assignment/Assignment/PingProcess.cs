@@ -29,13 +29,13 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        Task<PingResult> resultTask = new Task<PingResult>( () => 
+        Task<PingResult> resultTask = new( () => 
             {
-                Ping toSend = new Ping ();
+                Ping toSend = new();
 
                 PingReply reply = toSend.Send(hostNameOrAddress);
 
-                PingResult res = new PingResult(((int)reply.Status), reply.Status.ToString());
+                PingResult res = new(((int)reply.Status), reply.Status.ToString());
 
                 return res;
             }
