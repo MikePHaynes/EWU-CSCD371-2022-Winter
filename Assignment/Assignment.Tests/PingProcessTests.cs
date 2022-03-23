@@ -73,9 +73,7 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
-        PingResult result = default;
-
-        result = Sut.RunAsync("localhost").Result;
+        PingResult result = Sut.RunAsync("localhost").Result;
 
         AssertValidPingOutput(result);
     }
@@ -83,11 +81,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunAsync_UsingTpl_Success()
     {
-        Task<PingResult> task = Sut.RunAsync("localhost");
-
-        await task;
-
-        PingResult result = task.Result;
+        PingResult result = await Sut.RunAsync("localhost");
 
         AssertValidPingOutput(result);
     }
@@ -146,10 +140,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-
-        Task<PingResult> task = Sut.RunAsync("localhost");
-        await task;
-        PingResult result = task.Result;
+        PingResult result = await Sut.RunLongRunningAsync("localHost");
 
         AssertValidPingOutput(result);
     }
