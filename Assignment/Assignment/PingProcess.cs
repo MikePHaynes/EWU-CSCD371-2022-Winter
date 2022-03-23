@@ -48,38 +48,20 @@ public class PingProcess
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
-
-        CancellationToken cancellationToken = default;
-
-        void updateStdOutput(string? line) =>
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
-
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel()
+     
+        ParallelQuery<Task<PingResult>>? all = hostNameOrAddresses.AsParallel()
             .Select(async item =>
             {
-                StartInfo.Arguments = item;
-
-                Task<PingResult> task = Task.Run(() =>
-                {
-                    Process process = RunProcessInternal(StartInfo, updateStdOutput, default, cancellationToken);
-
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    return new PingResult(process.ExitCode, stringBuilder?.ToString());
-
-                }, cancellationToken);
-
+                Task<PingResult> task = Task.Run(() => Run(item));
                 await task.WaitAsync(default(CancellationToken));
-
-                return task.Result.ExitCode;
+                return task.Result;
             });
 
         await Task.WhenAll(all);
-
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
-
+     
+        int total = all.Aggregate(0, (total, item) => total + item.Result.ExitCode);
+        stringBuilder??=new StringBuilder().Append(all.Aggregate("", (total, item) => total.Trim() + Environment.NewLine + item.Result.StdOutput?.Trim()));
         return new PingResult(total, stringBuilder?.ToString());
-
     }
 
 
